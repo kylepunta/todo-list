@@ -1,0 +1,24 @@
+body {
+    min-height: 100vh;
+    display: grid;
+    grid-template-areas: 
+    "header header header"
+    "sidebar content content"
+    "sidebar content content";
+    grid-template-columns: 400px 1fr 1fr;
+    grid-template-rows: 100px 1fr 1fr;
+}
+
+.header {
+    background-color: #9494ff;
+    grid-area: header;
+}
+
+.sidebar {
+    background-color: #dadbff;
+    grid-area: sidebar;
+}
+
+.content {
+    grid-area: content;
+}
