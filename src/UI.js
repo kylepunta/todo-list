@@ -70,22 +70,70 @@ const displayUI = (function() {
         listItems.forEach((listItem) => {
             const listItemContainer = document.createElement('div');
             listItemContainer.classList.add('list-item-container');
+            const checklistMarkerContainer = document.createElement('div');
+            checklistMarkerContainer.classList.add('checklist-marker-container');
+            const titleContainer = document.createElement('div');
+            titleContainer.classList.add('title-container');
+            const descriptionContainer = document.createElement('div');
+            descriptionContainer.classList.add('description-container');
+            const dueDateContainer = document.createElement('div');
+            dueDateContainer.classList.add('due-date-container');
+            const priorityContainer = document.createElement('div');
+            priorityContainer.classList.add('priority-container');
+
+            const checklistMarker = document.createElement('div');
+            checklistMarker.classList.add('checklist-marker');
             const title = document.createElement('h3');
             const description = document.createElement('p');
             const dueDate = document.createElement('p');
-            const priority = document.createElement('p');
+            const priority = document.createElement('h4');
             title.textContent = listItem.title;
             description.textContent= listItem.description;
             dueDate.textContent = listItem.dueDate;
-            priority.textContent = listItem.priority;
-            listItemContainer.appendChild(title);
-            listItemContainer.appendChild(description);
-            listItemContainer.appendChild(dueDate);
-            listItemContainer.appendChild(priority);
+            priority.textContent = "Priority";
+
+            const lowPriority = document.createElement('div');
+            const medPriority = document.createElement('div');
+            const highPriority = document.createElement('div');
+            lowPriority.classList.add('low-priority');
+            medPriority.classList.add('med-priority');
+            highPriority.classList.add('high-priority');
+            const priorityBoxes = document.createElement('div');
+            priorityBoxes.classList.add('priority-boxes');
+
+            const svgString = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>chevron-down</title><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>`;
+            const svgDoc = parser.parseFromString(svgString, "image/svg+xml").documentElement;
+            const expand = document.createElement('div');
+            expand.classList.add('expand');
+            expand.appendChild(svgDoc);
+
+            checklistMarkerContainer.appendChild(checklistMarker);
+            titleContainer.appendChild(title);
+            descriptionContainer.appendChild(description);
+            dueDateContainer.appendChild(dueDate);
+            priorityContainer.appendChild(priority);
+            priorityBoxes.appendChild(lowPriority);
+            priorityBoxes.appendChild(medPriority);
+            priorityBoxes.appendChild(highPriority);
+            priorityContainer.appendChild(priorityBoxes);
+
+            listItemContainer.appendChild(checklistMarkerContainer);
+            listItemContainer.appendChild(titleContainer);
+            listItemContainer.appendChild(descriptionContainer);
+            listItemContainer.appendChild(dueDateContainer);
+            listItemContainer.appendChild(priorityContainer);
+            listItemContainer.appendChild(expand);
             content.appendChild(listItemContainer);
         });
     };
-    return {displayHeader, displaySidebar, displayContent, displayMainHeading, displaySidebarHeading, displayProjects, displayAddNewProject, displayListItems};
+    function displayProjectNameHeading(projectName) {
+        const content = document.querySelector('.content');
+        const projectNameHeading = document.createElement('h2');
+        projectNameHeading.classList.add('project-name-heading');
+        projectNameHeading.textContent = projectName;
+        content.appendChild(projectNameHeading);
+    };
+    return {displayHeader, displaySidebar, displayContent, displayMainHeading, displaySidebarHeading, displayProjects, displayAddNewProject, displayListItems, displayProjectNameHeading};
 })();
 
 export default displayUI;
