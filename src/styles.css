@@ -26,7 +26,7 @@ body {
 .content {
     grid-area: content;
     display: grid;
-    grid-template-rows: repeat(10, 1fr);
+    grid-template-rows: auto repeat(10, 1fr);
 }
 
 .project-heading,
@@ -64,13 +64,68 @@ svg {
 }
 
 .list-item-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+    display: grid;
     border: 1px solid gray;
-    gap: 30px;
+    grid-template-columns: 4fr 14fr 4fr 4fr 2fr;
+    grid-template-rows: 1fr;
+    justify-items: start;
+    align-items: center;
 }
 
-.list-item-container > * {
+.list-item-container * {
     margin: 0px;
+}
+
+.project-name-heading {
+    text-align: center;
+}
+
+.checklist-marker {
+    width: 30px;
+    height: 30px;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+.description-container {
+    display: none;
+}
+
+.low-priority,
+.med-priority,
+.high-priority {
+    width: 16px;
+    height: 16px;
+}
+
+.priority-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.priority-boxes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.low-priority {
+    border: 2px solid yellow;
+}
+
+.med-priority {
+    border: 2px solid orange;
+}
+
+.high-priority {
+    border: 2px solid red;
+}
+
+.priority-container > h4 {
+    text-align: center;
+}
+
+.checklist-marker-container {
+    margin-left: 20px;
 }
