@@ -14,5 +14,5 @@ displayUI.displayAddNewProject();
 for (let i = 0; i < 10; i++){
     listItems[i] = createNewListItem("Book appointment", "Hair appointment", "14/11/2024", "High");
 };
-
+displayUI.displayProjectNameHeading("Monday");
 displayUI.displayListItems();
