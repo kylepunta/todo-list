@@ -1,6 +1,6 @@
 import "./styles.css";
 import displayUI from "./UI.js";
-import { expandListItems } from "./eventHandler.js";
+import { handleEvents } from "./eventHandler.js";
 
 displayUI.displayHeader();
 displayUI.displaySidebar();
@@ -19,4 +19,4 @@ const expandBtns = document.querySelectorAll('.expand');
 const descriptionContainers = document.querySelectorAll('.description-container');
 
 
-expandListItems(expandBtns, descriptionContainers);
+handleEvents.expandListItems(expandBtns, descriptionContainers);
