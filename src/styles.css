@@ -18,7 +18,7 @@ body {
     background-color: #dadbff;
     grid-area: sidebar;
     display: grid;
-    grid-template-rows: auto repeat(10, 1fr);
+    grid-template-rows: auto repeat(10, 1fr) auto;
     gap: 4px;
     border: 2px solid #bec0ff;
 }
@@ -70,6 +70,7 @@ svg {
     grid-template-rows: 1fr;
     justify-items: start;
     align-items: center;
+    transition: height 2s ease;
 }
 
 .list-item-container * {
@@ -88,7 +89,10 @@ svg {
 }
 
 .description-container {
-    display: none;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    grid-area: 2 / 2 / 3 / 6;
 }
 
 .low-priority,
@@ -128,4 +132,22 @@ svg {
 
 .checklist-marker-container {
     margin-left: 20px;
+}
+
+.add-new-list-item-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    margin-left: 13px;
+}
+
+.add-new-list-item-container > h4 {
+    margin-left: 20px;
+}
+
+.expand {
+    max-height: 80px;
+    opacity: 1;
+    visibility: visible;
+    padding: 2px 0px 8px 0px;
 }
