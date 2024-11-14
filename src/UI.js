@@ -133,7 +133,20 @@ const displayUI = (function() {
         projectNameHeading.textContent = projectName;
         content.appendChild(projectNameHeading);
     };
-    return {displayHeader, displaySidebar, displayContent, displayMainHeading, displaySidebarHeading, displayProjects, displayAddNewProject, displayListItems, displayProjectNameHeading};
+    function displayAddNewListItem() {
+        const svgString = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>`;
+        const svgDoc = parser.parseFromString(svgString, "image/svg+xml").documentElement;
+        const content = document.querySelector('.content');
+        const addNewListItemContainer = document.createElement('div');
+        addNewListItemContainer.classList.add('add-new-list-item-container');
+        const addNewListItemHeading = document.createElement('h4');
+        addNewListItemHeading.classList.add('add-new-list-item-heading');
+        addNewListItemHeading.textContent = "Add new list item";
+        addNewListItemContainer.appendChild(svgDoc);
+        addNewListItemContainer.appendChild(addNewListItemHeading);
+        content.appendChild(addNewListItemContainer);
+    };
+    return {displayHeader, displaySidebar, displayContent, displayMainHeading, displaySidebarHeading, displayProjects, displayAddNewProject, displayListItems, displayProjectNameHeading, displayAddNewListItem};
 })();
 
 export default displayUI;
