@@ -10,7 +10,7 @@ projects[5] = "Saturday";
 projects[6] = "Sunday";
 
 let listItems = [10];
-for (let i = 0; i < 10; i++){
+for (let i = 0; i < 1; i++){
     listItems[i] = createNewListItem("Book appointment", "Hair appointment", "14/11/2024", "High");
 };
 
