@@ -1,5 +1,6 @@
-const handleEvents = (function() {
+const eventHandler = (function() {
     const parser = new DOMParser();
+
     function expandListItems(expandBtns, descriptionContainers) {
         for (let i = 0; i < expandBtns.length; i++){
             expandBtns[i].addEventListener('click', () => {
@@ -22,8 +23,10 @@ const handleEvents = (function() {
             });
         };
     };
+    
+
     return {expandListItems};
 })();
 
 
-export { handleEvents };
+export { eventHandler };
