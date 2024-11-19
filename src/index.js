@@ -1,6 +1,6 @@
 import "./styles.css";
 import displayUI from "./UI.js";
-import { handleEvents } from "./eventHandler.js";
+import { eventHandler } from "./eventHandler.js";
 
 displayUI.displayHeader();
 displayUI.displaySidebar();
@@ -12,11 +12,11 @@ displayUI.displayAddNewProject();
 
 
 displayUI.displayProjectNameHeading("Monday");
-displayUI.displayListItems();
+// displayUI.displayListItems();
 displayUI.displayAddNewListItem();
 
 const expandBtns = document.querySelectorAll('.expand');
 const descriptionContainers = document.querySelectorAll('.description-container');
 
-
-handleEvents.expandListItems(expandBtns, descriptionContainers);
+eventHandler.addListItem();
+eventHandler.expandListItems(expandBtns, descriptionContainers);
