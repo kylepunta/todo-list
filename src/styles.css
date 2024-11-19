@@ -26,7 +26,7 @@ body {
 .content {
     grid-area: content;
     display: grid;
-    grid-template-rows: 72px repeat(10, auto);
+    grid-template-rows: 72px repeat(10, minmax(50px, auto));
 }
 
 .project-heading,
