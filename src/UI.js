@@ -1,4 +1,5 @@
 import { projects, listItems } from "./storage.js";
+import { eventHandler } from "./eventHandler.js";
 
 const displayUI = (function() {
     const body = document.querySelector('body');
@@ -16,6 +17,9 @@ const displayUI = (function() {
     function displayContent() {
         const content = document.createElement('div');
         content.classList.add('content');
+        const dialog = document.createElement('dialog');
+        dialog.classList.add('new-item-dialog');
+        content.appendChild(dialog);
         body.appendChild(content);    
     };
     function displayMainHeading() {
@@ -143,6 +147,9 @@ const displayUI = (function() {
     function displayAddNewListItem() {
         const svgString = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>`;
         const svgDoc = parser.parseFromString(svgString, "image/svg+xml").documentElement;
+        svgDoc.addEventListener('click', () => {
+            eventHandler.createNewListItem();
+        });
         const content = document.querySelector('.content');
         const addNewListItemContainer = document.createElement('div');
         addNewListItemContainer.classList.add('add-new-list-item-container');
