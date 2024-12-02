@@ -165,3 +165,61 @@ svg {
 .due-date-container {
     grid-area: 1 / 3 / 3 / 4;
 }
+
+.new-item-dialog {
+    width: 800px;
+    height: 400px;
+}
+
+.new-item-form {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto repeat(4, 1fr);
+    gap: 10px;
+}
+
+.new-item-form > h3 {
+    grid-area: 1 / 1 / 2 / 3;
+    text-align: center;
+}
+
+.title-section {
+    grid-area: 2 / 1 / 3 / 3;
+}
+
+.description-section {
+    grid-area: 3 / 1 / 4 / 3;
+}
+
+.date-section {
+    grid-area: 4 / 1 / 5 / 3;
+}
+
+.add-button,
+.cancel-button {
+    width: 220px;
+    height: 46px;
+}
+
+.button-section {
+    grid-area: 5 / 1 / 6 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.title-section,
+.description-section,
+.date-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.new-item-form input {
+    width: 688px;
+    height: 30px;
+    border: 1px solid gray;
+    border-radius: 6px;
+}
