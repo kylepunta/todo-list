@@ -1,5 +1,4 @@
-import { projects, listItems } from "./storage.js";
-import { eventHandler } from "./eventHandler.js";
+import { projects } from "./storage.js";
 
 const displayUI = (function() {
     const body = document.querySelector('body');
@@ -17,9 +16,6 @@ const displayUI = (function() {
     function displayContent() {
         const content = document.createElement('div');
         content.classList.add('content');
-        const dialog = document.createElement('dialog');
-        dialog.classList.add('new-item-dialog');
-        content.appendChild(dialog);
         body.appendChild(content);    
     };
     function displayMainHeading() {
@@ -39,6 +35,7 @@ const displayUI = (function() {
     function displayAddNewProject() {
         const svgString = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>book-plus</title><path d="M13 19C13 20.1 13.3 21.12 13.81 22H6C4.89 22 4 21.11 4 20V4C4 2.9 4.89 2 6 2H7V9L9.5 7.5L12 9V2H18C19.1 2 20 2.89 20 4V13.09C19.67 13.04 19.34 13 19 13C15.69 13 13 15.69 13 19M20 18V15H18V18H15V20H18V23H20V20H23V18H20Z" /></svg>`;
         const svgDoc = parser.parseFromString(svgString, "image/svg+xml").documentElement;
+        svgDoc.classList.add('add-new-project-button');
         const sidebar = document.querySelector('.sidebar');
         const addNewProjectHeading = document.createElement('h3');
         addNewProjectHeading.textContent = "Add New Project";
@@ -147,9 +144,7 @@ const displayUI = (function() {
     function displayAddNewListItem() {
         const svgString = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>`;
         const svgDoc = parser.parseFromString(svgString, "image/svg+xml").documentElement;
-        svgDoc.addEventListener('click', () => {
-            eventHandler.createNewListItem();
-        });
+        svgDoc.classList.add('add-new-list-item');
         const content = document.querySelector('.content');
         const addNewListItemContainer = document.createElement('div');
         addNewListItemContainer.classList.add('add-new-list-item-container');
@@ -160,7 +155,106 @@ const displayUI = (function() {
         addNewListItemContainer.appendChild(addNewListItemHeading);
         content.appendChild(addNewListItemContainer);
     };
-    return {displayHeader, displaySidebar, displayContent, displayMainHeading, displaySidebarHeading, displayProjects, displayAddNewProject, displayListItems, displayProjectNameHeading, displayAddNewListItem};
+    function displayAddListItemDialog() {
+        const content = document.querySelector('.content');
+        const dialog = document.createElement('dialog');
+        dialog.classList.add('add-list-item-dialog');
+        content.appendChild(dialog);
+
+        const form = document.createElement('form');
+        form.classList.add('add-list-item-form');
+    
+        const mainHeading = document.createElement('h3');
+        mainHeading.textContent = "Add New List Item";
+      
+        const titleSection = document.createElement('div');
+        const descriptionSection = document.createElement('div');
+        const dateSection = document.createElement('div');
+        titleSection.classList.add('title-section');
+        descriptionSection.classList.add('description-section');
+        dateSection.classList.add('date-section');
+    
+        const titleLabel = document.createElement('label');
+        const descriptionLabel = document.createElement('label');
+        const dateLabel = document.createElement('label');
+        titleLabel.textContent = "Title:";
+        descriptionLabel.textContent = "Description:";
+        dateLabel.textContent = "Date:";
+    
+        const title = document.createElement('input');
+        title.classList.add('title');
+        const description = document.createElement('input');
+        description.classList.add('description');
+        const date = document.createElement('input');
+        date.classList.add('date');
+    
+        const btnSection = document.createElement('div');
+        btnSection.classList.add('button-section');
+        const addBtn = document.createElement('button');
+        const cancelBtn = document.createElement('button');
+        addBtn.classList.add('add-list-item-button');
+        cancelBtn.classList.add('cancel-list-item-button');
+        addBtn.textContent = "Add";
+        cancelBtn.textContent = "Cancel";
+        btnSection.appendChild(addBtn);
+        btnSection.appendChild(cancelBtn);
+    
+        titleSection.appendChild(titleLabel);
+        titleSection.appendChild(title);
+        descriptionSection.appendChild(descriptionLabel);
+        descriptionSection.appendChild(description);
+        dateSection.appendChild(dateLabel);
+        dateSection.appendChild(date);
+    
+        form.appendChild(mainHeading);
+        form.appendChild(titleSection);
+        form.appendChild(descriptionSection);
+        form.appendChild(dateSection);
+        form.appendChild(btnSection);
+        dialog.appendChild(form);
+        content.appendChild(dialog);
+    };
+    function displayAddProjectDialog() {
+        const content = document.querySelector('.content');
+        const dialog = document.createElement('dialog');
+        dialog.classList.add('add-project-dialog');
+
+        const form = document.createElement('form');
+        form.classList.add('add-project-form');
+
+        const addProjectHeading = document.createElement('h3');
+        addProjectHeading.textContent = "Add New Project";
+
+        const projectTitleSection = document.createElement('div');
+        projectTitleSection.classList.add('project-title-section');
+
+        const projectTitleLabel = document.createElement('label');
+        projectTitleLabel.textContent = "Project Name:";
+        projectTitleLabel.classList.add('project-title-label');
+        const projectTitle = document.createElement('input');
+        projectTitle.classList.add('project-title');
+
+        const btnSection = document.createElement('div');
+        btnSection.classList.add('project-button-section');
+        const addProjectBtn = document.createElement('button');
+        addProjectBtn.classList.add('add-project-button');
+        addProjectBtn.textContent = "Add";
+        const cancelProjectBtn = document.createElement('button');
+        cancelProjectBtn.classList.add('cancel-project-button');
+        cancelProjectBtn.textContent = "Cancel";
+
+        projectTitleSection.appendChild(projectTitleLabel);
+        projectTitleSection.appendChild(projectTitle);
+        btnSection.appendChild(addProjectBtn);
+        btnSection.appendChild(cancelProjectBtn);
+        form.appendChild(addProjectHeading);
+        form.appendChild(projectTitleSection);
+        form.appendChild(btnSection);
+        dialog.appendChild(form);
+        content.appendChild(dialog);
+    };
+
+    return {displayHeader, displaySidebar, displayContent, displayMainHeading, displaySidebarHeading, displayProjects, displayAddNewProject, displayListItems, displayProjectNameHeading, displayAddNewListItem, displayAddListItemDialog, displayAddProjectDialog};
 })();
 
 export default displayUI;
