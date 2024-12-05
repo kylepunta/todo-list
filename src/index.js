@@ -9,14 +9,15 @@ displayUI.displayMainHeading();
 displayUI.displaySidebarHeading();
 displayUI.displayProjects();
 displayUI.displayAddNewProject();
-
-
+displayUI.displayAddListItemDialog();
 displayUI.displayProjectNameHeading("Monday");
-// displayUI.displayListItems();
 displayUI.displayAddNewListItem();
+displayUI.displayAddProjectDialog();
 
 const expandBtns = document.querySelectorAll('.expand');
 const descriptionContainers = document.querySelectorAll('.description-container');
 
-eventHandler.addListItem();
-eventHandler.expandListItems(expandBtns, descriptionContainers);
+eventHandler.addNewListItemBtnListener();
+eventHandler.addListItemDialogListeners();
+eventHandler.addProjectBtnListener();
+eventHandler.addProjectDialogListeners();
