@@ -18,7 +18,7 @@ body {
     background-color: #dadbff;
     grid-area: sidebar;
     display: grid;
-    grid-template-rows: 66px repeat(10, 78px) auto;
+    grid-template-rows: 66px auto 66px;
     gap: 4px;
     border: 2px solid #bec0ff;
 }
@@ -26,7 +26,7 @@ body {
 .content {
     grid-area: content;
     display: grid;
-    grid-template-rows: 72px repeat(10, minmax(50px, auto));
+    grid-template-rows: 72px auto 72px;
 }
 
 .project-heading,
@@ -42,6 +42,7 @@ body {
     align-items: center;
     gap: 4px;
     justify-content: space-between;
+    padding: 14px 14px;
 }
 
 svg {
@@ -71,6 +72,8 @@ svg {
     justify-items: start;
     align-items: center;
     transition: height 2s ease;
+    min-height: 70px;
+    padding: 14px 10px;
 }
 
 .list-item-container * {
@@ -79,6 +82,7 @@ svg {
 
 .project-name-heading {
     text-align: center;
+    grid-area: 1 / 1 / 2 / 2;
 }
 
 .checklist-marker {
@@ -140,6 +144,7 @@ svg {
     grid-template-columns: auto 1fr;
     align-items: center;
     margin-left: 13px;
+    grid-area: 3 / 1 / 4 / 2;
 }
 
 .add-new-list-item-container > h4 {
@@ -274,5 +279,13 @@ svg {
 }
 
 .add-new-project-button:hover {
+    cursor: pointer;
+}
+
+.project-button:hover {
+    cursor: pointer;
+}
+
+.settings {
     cursor: pointer;
 }
