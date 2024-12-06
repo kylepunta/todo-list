@@ -1,9 +1,14 @@
 import { listItemsController } from "./toDoItems";
+import { projectsController } from "./projects";
+import displayUI from "./UI";
+import { getCurrentProject, setCurrentProject } from "./state";
 
 const eventHandler = (function() {
     const parser = new DOMParser();
 
-    function addExpandListItemsListeners(expandBtns, descriptionContainers) {
+    function addExpandListItemsListeners() {
+        const expandBtns = document.querySelectorAll('.expand');
+        const descriptionContainers = document.querySelectorAll('.description-container');
         for (let i = 0; i < expandBtns.length; i++){
             expandBtns[i].addEventListener('click', () => {
                 descriptionContainers[i].classList.toggle('expand-list-item');
@@ -40,6 +45,8 @@ const eventHandler = (function() {
 
         addListItemBtn.addEventListener('click', (event) => {
             event.preventDefault();
+            listItemsController.addListItem();
+            addListItemDialog.close();
         });
         cancelListItemBtn.addEventListener('click', (event) => {
             event.preventDefault();
@@ -61,14 +68,26 @@ const eventHandler = (function() {
 
         addProjectBtn.addEventListener('click', (event) => {
             event.preventDefault();
+            projectsController.addProject();
+            addProjectDialog.close();
         });
         cancelProjectBtn.addEventListener('click', (event) => {
             event.preventDefault();
             addProjectDialog.close();
         });
     };
+    function loadProjectListeners() {
+        const projectBtns = document.querySelectorAll('.project-button');
+        projectBtns.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                setCurrentProject(index);
+                displayUI.displayProjectNameHeading();
+                displayUI.displayProject();
+            });
+        });
+    };
 
-    return {addExpandListItemsListeners, addListItemDialogListeners, addNewListItemBtnListener, addProjectBtnListener, addProjectDialogListeners};
+    return {addExpandListItemsListeners, addListItemDialogListeners, addNewListItemBtnListener, addProjectBtnListener, addProjectDialogListeners, loadProjectListeners};
 })();
 
 export { eventHandler };
