@@ -10,7 +10,7 @@ displayUI.displaySidebarHeading();
 displayUI.displayProjects();
 displayUI.displayAddNewProject();
 displayUI.displayAddListItemDialog();
-displayUI.displayProjectNameHeading("Monday");
+// displayUI.displayProjectNameHeading();
 displayUI.displayAddNewListItem();
 displayUI.displayAddProjectDialog();
 
