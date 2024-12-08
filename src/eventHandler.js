@@ -86,8 +86,40 @@ const eventHandler = (function() {
             });
         });
     };
+    function addSettingsListeners() {
+        const settings = document.querySelectorAll('.settings');
+        const popUps = document.querySelectorAll('.pop-up');
+        for (let i = 0; i < settings.length; i++) {
+            settings[i].addEventListener('click', () => {
+                if (popUps[i].classList.contains('active')) {
+                    popUps[i].classList.remove('active');
+                    // popUps[i].classList.add('inactive');
+                }
+                else {
+                    for (let j = 0; j < popUps.length; j++) {
+                        if(popUps[j].classList.contains('active')) {
+                            popUps[j].classList.remove('active');
+                            // popUps[j].classList.add('inactive');
+                        };
+                    };
+                    // popUps[i].classList.remove('inactive');
+                    popUps[i].classList.add('active');
+                };
+            });
+        };
+        document.addEventListener('click', (event) => {
+            for (let i = 0; i < popUps.length; i++) {
+                if(!popUps[i].contains(event.target) && !settings[i].contains(event.target)) {
+                    if(popUps[i].classList.contains('active')) {
+                        popUps[i].classList.remove('active');
+                        // popUps[i].classList.add('inactive');
+                    };
+                };
+            };
+        });
+    };
 
-    return {addExpandListItemsListeners, addListItemDialogListeners, addNewListItemBtnListener, addProjectBtnListener, addProjectDialogListeners, loadProjectListeners};
+    return {addExpandListItemsListeners, addListItemDialogListeners, addNewListItemBtnListener, addProjectBtnListener, addProjectDialogListeners, loadProjectListeners, addSettingsListeners};
 })();
 
 export { eventHandler };
