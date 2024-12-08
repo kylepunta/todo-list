@@ -78,21 +78,6 @@ const displayUI = (function() {
             projectNameContainer.appendChild(projectItem);
             projectNameContainer.appendChild(svgDocTwo);
             projectsContainer.appendChild(projectNameContainer);
-            const popUp = document.createElement('div');
-            popUp.classList.add('pop-up');
-            const renameProject = document.createElement('p');
-            renameProject.textContent = "Rename Project";
-            const deleteProject = document.createElement('p');
-            deleteProject.textContent = "Delete Project";
-            const renameContainer = document.createElement('div');
-            const deleteContainer = document.createElement('div');
-            renameContainer.classList.add('rename-container');
-            deleteContainer.classList.add('delete-container');
-            renameContainer.appendChild(renameProject);
-            deleteContainer.appendChild(deleteProject);
-            popUp.appendChild(renameContainer);
-            popUp.appendChild(deleteContainer);
-            projectNameContainer.appendChild(popUp);    
         });
         eventHandler.loadProjectListeners();
     };
@@ -290,8 +275,29 @@ const displayUI = (function() {
         dialog.appendChild(form);
         content.appendChild(dialog);
     };
+    function displayProjectSettings() {
+        const projectNameContainers = document.querySelectorAll('.project-name-container');
+        projectNameContainers.forEach((project) => {
+            const popUp = document.createElement('div');
+            popUp.classList.add('pop-up');
+            const renameProject = document.createElement('p');
+            renameProject.textContent = "Rename Project";
+            const deleteProject = document.createElement('p');
+            deleteProject.textContent = "Delete Project";
+            const renameContainer = document.createElement('div');
+            const deleteContainer = document.createElement('div');
+            renameContainer.classList.add('rename-container');
+            deleteContainer.classList.add('delete-container');
+            renameContainer.appendChild(renameProject);
+            deleteContainer.appendChild(deleteProject);
+            popUp.appendChild(renameContainer);
+            popUp.appendChild(deleteContainer);
+            project.appendChild(popUp);        
+        });
+        eventHandler.addSettingsListeners();
+    };
 
-    return {displayHeader, displaySidebar, displayContent, displayMainHeading, displaySidebarHeading, displayProjects, displayAddNewProject, displayProject, displayProjectNameHeading, displayAddNewListItem, displayAddListItemDialog, displayAddProjectDialog};
+    return {displayHeader, displaySidebar, displayContent, displayMainHeading, displaySidebarHeading, displayProjects, displayAddNewProject, displayProject, displayProjectNameHeading, displayAddNewListItem, displayAddListItemDialog, displayAddProjectDialog, displayProjectSettings};
 })();
 
 export default displayUI;
