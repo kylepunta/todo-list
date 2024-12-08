@@ -20,6 +20,7 @@ const listItemsController = (function() {
         let currentProject = getCurrentProject();
         projects[currentProject].listItems.push(listItem);
         displayUI.displayProject();
+        displayUI.displayItemSettings();
         console.table(projects);
     };
     return { createListItem, addListItem };    
