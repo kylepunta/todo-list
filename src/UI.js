@@ -72,7 +72,7 @@ const displayUI = (function() {
             const svgDocOne = parser.parseFromString(svgStringOne, "image/svg+xml").documentElement;
             svgDocOne.classList.add('project-button');
             const svgDocTwo = parser.parseFromString(svgStringTwo, "image/svg+xml").documentElement;
-            svgDocTwo.classList.add('settings');
+            svgDocTwo.classList.add('project-settings');
             projectItem.appendChild(svgDocOne);
             projectItem.appendChild(projectName);
             projectNameContainer.appendChild(projectItem);
@@ -129,7 +129,7 @@ const displayUI = (function() {
 
             const svgStringTwo = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>dots-horizontal</title><path d="M16,12A2,2 0 0,1 18,10A2,2 0 0,1 20,12A2,2 0 0,1 18,14A2,2 0 0,1 16,12M10,12A2,2 0 0,1 12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12M4,12A2,2 0 0,1 6,10A2,2 0 0,1 8,12A2,2 0 0,1 6,14A2,2 0 0,1 4,12Z" /></svg>`;
             const settings = document.createElement('div');
-            settings.classList.add('settings');
+            settings.classList.add('item-settings');
             const svgDocTwo = parser.parseFromString(svgStringTwo, "image/svg+xml").documentElement;
             settings.appendChild(svgDocTwo);
 
@@ -279,7 +279,8 @@ const displayUI = (function() {
         const projectNameContainers = document.querySelectorAll('.project-name-container');
         projectNameContainers.forEach((project) => {
             const popUp = document.createElement('div');
-            popUp.classList.add('pop-up');
+            popUp.classList.add('project-pop-up');
+            popUp.classList.add('hidden');
             const renameProject = document.createElement('p');
             renameProject.textContent = "Rename Project";
             const deleteProject = document.createElement('p');
@@ -294,10 +295,37 @@ const displayUI = (function() {
             popUp.appendChild(deleteContainer);
             project.appendChild(popUp);        
         });
-        eventHandler.addSettingsListeners();
+        eventHandler.addProjectSettingsListeners();
+    };
+    function displayItemSettings() {
+        const listItemContainers = document.querySelectorAll('.list-item-container');
+        listItemContainers.forEach((item) => {
+            const popUp = document.createElement('div');
+            popUp.classList.add('item-pop-up');
+            popUp.classList.add('hidden');
+            popUp.setAttribute('id', 'item-pop-up');
+            const editItem = document.createElement('p');
+            editItem.setAttribute('id', 'edit-item');
+            editItem.textContent = "Edit";
+            const deleteItem = document.createElement('p');
+            deleteItem.setAttribute('id', 'delete-item');
+            deleteItem.textContent = "Delete";
+            const editContainer = document.createElement('div');
+            const deleteContainer = document.createElement('div');
+            editContainer.classList.add('edit-container');
+            editContainer.setAttribute('id', 'edit-container');
+            deleteContainer.classList.add('delete-container');
+            deleteContainer.setAttribute('id', 'delete-container');
+            editContainer.appendChild(editItem);
+            deleteContainer.appendChild(deleteItem);
+            popUp.appendChild(editContainer);
+            popUp.appendChild(deleteContainer);
+            item.appendChild(popUp);
+        });
+        eventHandler.addItemSettingsListeners();
     };
 
-    return {displayHeader, displaySidebar, displayContent, displayMainHeading, displaySidebarHeading, displayProjects, displayAddNewProject, displayProject, displayProjectNameHeading, displayAddNewListItem, displayAddListItemDialog, displayAddProjectDialog, displayProjectSettings};
+    return {displayHeader, displaySidebar, displayContent, displayMainHeading, displaySidebarHeading, displayProjects, displayAddNewProject, displayProject, displayProjectNameHeading, displayAddNewListItem, displayAddListItemDialog, displayAddProjectDialog, displayProjectSettings, displayItemSettings};
 })();
 
 export default displayUI;
