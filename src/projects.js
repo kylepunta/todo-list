@@ -13,8 +13,9 @@ const projectsController = (function() {
         const projectTitle = document.querySelector('.project-title').value;
         let project = createProject(projectTitle);
         projects.push(project);
-        console.log(projects);
+        console.table(projects);
         displayUI.displayProjects();
+        displayUI.displayProjectSettings();
     };
     return {createProject, addProject};
 })();
