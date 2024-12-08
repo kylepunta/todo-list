@@ -86,40 +86,72 @@ const eventHandler = (function() {
             });
         });
     };
-    function addSettingsListeners() {
-        const settings = document.querySelectorAll('.settings');
-        const popUps = document.querySelectorAll('.pop-up');
-        for (let i = 0; i < settings.length; i++) {
-            settings[i].addEventListener('click', () => {
-                if (popUps[i].classList.contains('active')) {
-                    popUps[i].classList.remove('active');
-                    // popUps[i].classList.add('inactive');
+    function addProjectSettingsListeners() {
+        const projectSettings = document.querySelectorAll('.project-settings');
+        const projectPopUps = document.querySelectorAll('.project-pop-up');
+        for (let i = 0; i < projectSettings.length; i++) {
+            projectSettings[i].addEventListener('click', () => {
+                if (projectPopUps[i].classList.contains('active')) {
+                    projectPopUps[i].classList.remove('active');
+                    projectPopUps[i].classList.add('hidden');
                 }
                 else {
-                    for (let j = 0; j < popUps.length; j++) {
-                        if(popUps[j].classList.contains('active')) {
-                            popUps[j].classList.remove('active');
-                            // popUps[j].classList.add('inactive');
+                    for (let j = 0; j < projectPopUps.length; j++) {
+                        if(projectPopUps[j].classList.contains('active')) {
+                            projectPopUps[j].classList.remove('active');
+                            projectPopUps[j].classList.add('hidden');
                         };
                     };
-                    // popUps[i].classList.remove('inactive');
-                    popUps[i].classList.add('active');
+                    projectPopUps[i].classList.remove('hidden');
+                    projectPopUps[i].classList.add('active');
                 };
             });
         };
         document.addEventListener('click', (event) => {
-            for (let i = 0; i < popUps.length; i++) {
-                if(!popUps[i].contains(event.target) && !settings[i].contains(event.target)) {
-                    if(popUps[i].classList.contains('active')) {
-                        popUps[i].classList.remove('active');
-                        // popUps[i].classList.add('inactive');
+            for (let i = 0; i < projectPopUps.length; i++) {
+                if(!projectPopUps[i].contains(event.target) && !projectSettings[i].contains(event.target)) {
+                    if(projectPopUps[i].classList.contains('active')) {
+                        projectPopUps[i].classList.remove('active');
+                        projectPopUps[i].classList.add('hidden');
+                    };
+                };
+            };
+        });
+    };
+    function addItemSettingsListeners() {
+        const itemSettings = document.querySelectorAll('.item-settings');
+        const itemPopUps = document.querySelectorAll('.item-pop-up');
+        for (let i = 0; i < itemSettings.length; i++) {
+            itemSettings[i].addEventListener('click', () => {
+                if(itemPopUps[i].classList.contains('active')) {
+                    itemPopUps[i].classList.remove('active');
+                    itemPopUps[i].classList.add('hidden');
+                }
+                else {
+                    for (let j = 0; j < itemPopUps.length; j++) {
+                        if(itemPopUps[j].classList.contains('active')) {
+                            itemPopUps[j].classList.remove('active');
+                            itemPopUps[j].classList.add('hidden');
+                        };
+                    };
+                    itemPopUps[i].classList.remove('hidden');
+                    itemPopUps[i].classList.add('active');
+                }
+            });
+        };
+        document.addEventListener('click', (event) => {
+            for (let i = 0; i < itemPopUps.length; i++) {
+                if(!itemPopUps[i].contains(event.target) && !itemSettings[i].contains(event.target)) {
+                    if(itemPopUps[i].classList.contains('active')) {
+                        itemPopUps[i].classList.remove('active');
+                        itemPopUps[i].classList.add('hidden');
                     };
                 };
             };
         });
     };
 
-    return {addExpandListItemsListeners, addListItemDialogListeners, addNewListItemBtnListener, addProjectBtnListener, addProjectDialogListeners, loadProjectListeners, addSettingsListeners};
+    return {addExpandListItemsListeners, addListItemDialogListeners, addNewListItemBtnListener, addProjectBtnListener, addProjectDialogListeners, loadProjectListeners, addProjectSettingsListeners, addItemSettingsListeners};
 })();
 
 export { eventHandler };
