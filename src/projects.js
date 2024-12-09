@@ -24,6 +24,14 @@ const projectsController = (function() {
         displayUI.displayProjects();
         displayUI.displayProjectSettings();
     };
-    return {createProject, addProject, deleteProject};
+    function renameProject() {
+        const currentProject = getCurrentProject();
+        const newProjectTitle = document.querySelector('.rename-title').value;
+        projects[currentProject].title = newProjectTitle;
+        console.table(projects);
+        displayUI.displayProjects();
+        displayUI.displayProjectSettings();
+    };
+    return {createProject, addProject, deleteProject, renameProject};
 })();
 export {projectsController};
