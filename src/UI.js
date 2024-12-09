@@ -282,8 +282,10 @@ const displayUI = (function() {
             popUp.classList.add('project-pop-up');
             popUp.classList.add('hidden');
             const renameProject = document.createElement('p');
+            renameProject.classList.add('rename-project');
             renameProject.textContent = "Rename Project";
             const deleteProject = document.createElement('p');
+            deleteProject.classList.add('delete-project');
             deleteProject.textContent = "Delete Project";
             const renameContainer = document.createElement('div');
             const deleteContainer = document.createElement('div');
@@ -296,6 +298,7 @@ const displayUI = (function() {
             project.appendChild(popUp);        
         });
         eventHandler.addProjectSettingsListeners();
+        eventHandler.addDeleteListeners();
     };
     function displayItemSettings() {
         const listItemContainers = document.querySelectorAll('.list-item-container');
@@ -323,9 +326,40 @@ const displayUI = (function() {
             item.appendChild(popUp);
         });
         eventHandler.addItemSettingsListeners();
+        eventHandler.addDeleteListeners();
+    };
+    function displayDeleteDialog() {
+        const content = document.querySelector('.content');
+        const deleteDialog = document.createElement('dialog');
+        deleteDialog.classList.add('delete-dialog');
+        const form = document.createElement('form');
+        const heading = document.createElement('h3');
+        heading.classList.add('delete-heading');
+        heading.textContent = "Delete";
+        const para = document.createElement('p');
+        para.textContent = "Are you Sure?";
+
+        const btnSection = document.createElement('div');
+        btnSection.classList.add('delete-buttons-section');
+        const confirmBtn = document.createElement('button');
+        confirmBtn.classList.add('confirm-button');
+        confirmBtn.textContent = "Confirm";
+        const cancelBtn = document.createElement('button');
+        cancelBtn.classList.add('cancel-button');
+        cancelBtn.textContent = "Cancel";
+
+        btnSection.appendChild(confirmBtn);
+        btnSection.appendChild(cancelBtn);
+        form.appendChild(heading);
+        form.appendChild(para);
+        form.appendChild(btnSection);
+        deleteDialog.appendChild(form);
+        content.appendChild(deleteDialog);
+
+        eventHandler.addDeleteDialogBtnListeners();
     };
 
-    return {displayHeader, displaySidebar, displayContent, displayMainHeading, displaySidebarHeading, displayProjects, displayAddNewProject, displayProject, displayProjectNameHeading, displayAddNewListItem, displayAddListItemDialog, displayAddProjectDialog, displayProjectSettings, displayItemSettings};
+    return {displayHeader, displaySidebar, displayContent, displayMainHeading, displaySidebarHeading, displayProjects, displayAddNewProject, displayProject, displayProjectNameHeading, displayAddNewListItem, displayAddListItemDialog, displayAddProjectDialog, displayProjectSettings, displayItemSettings, displayDeleteDialog};
 })();
 
 export default displayUI;
