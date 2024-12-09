@@ -201,8 +201,56 @@ const eventHandler = (function() {
             deleteDialog.close();
         });
     };
+    function addRenameProjectListeners() {
+        const renameBtns = document.querySelectorAll('.rename-project');
+        const renameDialog = document.querySelector('.rename-dialog');
+        renameBtns.forEach((renameBtn) => {
+            renameBtn.addEventListener('click', () => {
+                renameDialog.showModal();
+            });
+        });
+    };
+    function addRenameDialogListeners() {
+        const renameBtn = document.querySelector('.rename-project-button');
+        const cancelBtn = document.querySelector('.cancel-rename-button');
+        const renameDialog = document.querySelector('.rename-dialog');
 
-    return {addExpandListItemsListeners, addListItemDialogListeners, addNewListItemBtnListener, addProjectBtnListener, addProjectDialogListeners, loadProjectListeners, addProjectSettingsListeners, addItemSettingsListeners, addDeleteListeners, addDeleteDialogBtnListeners};
+        renameBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            projectsController.renameProject();
+            renameDialog.close();
+        });
+        cancelBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            renameDialog.close();
+        });
+    };
+    function addEditListeners() {
+        const editBtns = document.querySelectorAll('#edit-item');
+        const editDialog = document.querySelector('.edit-dialog');
+        editBtns.forEach((editBtn) => {
+            editBtn.addEventListener('click', () => {
+                editDialog.showModal();
+            });
+        });
+    };
+    function addEditDialogListeners() {
+        const updateBtn = document.querySelector('.update-list-item-button');
+        const cancelBtn = document.querySelector('.cancel-update-item-button');
+        const editDialog = document.querySelector('.edit-dialog');
+
+        updateBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            listItemsController.updateListItem();
+            editDialog.close();
+        });
+        cancelBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            editDialog.close();
+        });
+    };
+
+    return {addExpandListItemsListeners, addListItemDialogListeners, addNewListItemBtnListener, addProjectBtnListener, addProjectDialogListeners, loadProjectListeners, addProjectSettingsListeners, addItemSettingsListeners, addDeleteListeners, addDeleteDialogBtnListeners, addRenameProjectListeners, addRenameDialogListeners, addEditListeners, addEditDialogListeners};
 })();
 
 export { eventHandler };
