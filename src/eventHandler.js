@@ -1,7 +1,8 @@
 import { listItemsController } from "./toDoItems";
 import { projectsController } from "./projects";
 import displayUI from "./UI";
-import { getCurrentProject, setCurrentProject } from "./state";
+import { getCurrentProject, setCurrentProject, getCurrentItem, setCurrentItem ,getElementToDelete, setElementToDelete } from "./state";
+import { projects } from "./storage";
 
 const eventHandler = (function() {
     const parser = new DOMParser();
@@ -83,6 +84,7 @@ const eventHandler = (function() {
                 setCurrentProject(index);
                 displayUI.displayProjectNameHeading();
                 displayUI.displayProject();
+                displayUI.displayItemSettings();
             });
         });
     };
@@ -91,6 +93,7 @@ const eventHandler = (function() {
         const projectPopUps = document.querySelectorAll('.project-pop-up');
         for (let i = 0; i < projectSettings.length; i++) {
             projectSettings[i].addEventListener('click', () => {
+                setCurrentProject(i);
                 if (projectPopUps[i].classList.contains('active')) {
                     projectPopUps[i].classList.remove('active');
                     projectPopUps[i].classList.add('hidden');
@@ -123,6 +126,7 @@ const eventHandler = (function() {
         const itemPopUps = document.querySelectorAll('.item-pop-up');
         for (let i = 0; i < itemSettings.length; i++) {
             itemSettings[i].addEventListener('click', () => {
+                setCurrentItem(i);
                 if(itemPopUps[i].classList.contains('active')) {
                     itemPopUps[i].classList.remove('active');
                     itemPopUps[i].classList.add('hidden');
@@ -150,8 +154,55 @@ const eventHandler = (function() {
             };
         });
     };
+    function addDeleteListeners() {
+        const deleteProjectBtns = document.querySelectorAll('.delete-project');
+        const deleteItemBtns = document.querySelectorAll('#delete-item');
+        const deleteDialog = document.querySelector('.delete-dialog');
+        const deleteHeading = document.querySelector('.delete-heading');
 
-    return {addExpandListItemsListeners, addListItemDialogListeners, addNewListItemBtnListener, addProjectBtnListener, addProjectDialogListeners, loadProjectListeners, addProjectSettingsListeners, addItemSettingsListeners};
+        deleteProjectBtns.forEach((deleteProjectBtn) => {
+            deleteProjectBtn.addEventListener('click', () => {
+                deleteHeading.textContent = "Delete Project";
+                deleteDialog.showModal();
+                setElementToDelete("Project");
+            });
+        });
+        deleteItemBtns.forEach((deleteItemBtn) => {
+            deleteItemBtn.addEventListener('click', () => {
+                deleteHeading.textContent = "Delete Item";
+                deleteDialog.showModal();
+                setElementToDelete("Item");
+            });
+        });
+    };
+    function addDeleteDialogBtnListeners() {
+        const confirmBtn = document.querySelector('.confirm-button');
+        const cancelBtn = document.querySelector('.cancel-button');
+        const deleteDialog = document.querySelector('.delete-dialog');
+        const listItemsContainer = document.querySelector('.list-items-container');
+
+        confirmBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            const elementToDelete = getElementToDelete();
+            switch(elementToDelete) {
+                case "Project":
+                                projectsController.deleteProject();
+                                listItemsContainer.innerHTML = "";
+                                deleteDialog.close();
+                                break;
+                case "Item":
+                                listItemsController.deleteListItem();
+                                deleteDialog.close();
+                                break;
+            };
+        });
+        cancelBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            deleteDialog.close();
+        });
+    };
+
+    return {addExpandListItemsListeners, addListItemDialogListeners, addNewListItemBtnListener, addProjectBtnListener, addProjectDialogListeners, loadProjectListeners, addProjectSettingsListeners, addItemSettingsListeners, addDeleteListeners, addDeleteDialogBtnListeners};
 })();
 
 export { eventHandler };
