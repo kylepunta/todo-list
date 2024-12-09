@@ -106,20 +106,15 @@ const displayUI = (function() {
             const title = document.createElement('h3');
             const description = document.createElement('p');
             const dueDate = document.createElement('p');
-            const priority = document.createElement('h4');
+            const dueDateHeading = document.createElement('h4');
+            dueDateHeading.textContent = "Due Date";
+            const priorityHeading = document.createElement('h4');
             title.textContent = listItem.title;
             description.textContent= listItem.description;
-            dueDate.textContent = listItem.dueDate;
-            priority.textContent = "Priority";
-
-            const lowPriority = document.createElement('div');
-            const medPriority = document.createElement('div');
-            const highPriority = document.createElement('div');
-            lowPriority.classList.add('low-priority');
-            medPriority.classList.add('med-priority');
-            highPriority.classList.add('high-priority');
-            const priorityBoxes = document.createElement('div');
-            priorityBoxes.classList.add('priority-boxes');
+            dueDate.textContent = listItem.date;
+            priorityHeading.textContent = "Priority";
+            const priority = document.createElement('p');
+            priority.textContent = listItem.priority;
 
             const svgStringOne = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>chevron-down</title><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>`;
             const svgDocOne = parser.parseFromString(svgStringOne, "image/svg+xml").documentElement;
@@ -136,12 +131,10 @@ const displayUI = (function() {
             checklistMarkerContainer.appendChild(checklistMarker);
             titleContainer.appendChild(title);
             descriptionContainer.appendChild(description);
+            dueDateContainer.appendChild(dueDateHeading);
             dueDateContainer.appendChild(dueDate);
+            priorityContainer.appendChild(priorityHeading);
             priorityContainer.appendChild(priority);
-            priorityBoxes.appendChild(lowPriority);
-            priorityBoxes.appendChild(medPriority);
-            priorityBoxes.appendChild(highPriority);
-            priorityContainer.appendChild(priorityBoxes);
 
             listItemContainer.appendChild(checklistMarkerContainer);
             listItemContainer.appendChild(titleContainer);
@@ -195,13 +188,17 @@ const displayUI = (function() {
         titleSection.classList.add('title-section');
         descriptionSection.classList.add('description-section');
         dateSection.classList.add('date-section');
+        const prioritySection = document.createElement('div');
+        prioritySection.classList.add('priority-section');
     
         const titleLabel = document.createElement('label');
         const descriptionLabel = document.createElement('label');
         const dateLabel = document.createElement('label');
+        const priorityLabel = document.createElement('label');
         titleLabel.textContent = "Title:";
         descriptionLabel.textContent = "Description:";
         dateLabel.textContent = "Date:";
+        priorityLabel.textContent = "Priority:";
     
         const title = document.createElement('input');
         title.classList.add('title');
@@ -209,6 +206,23 @@ const displayUI = (function() {
         description.classList.add('description');
         const date = document.createElement('input');
         date.classList.add('date');
+        const prioritySelect = document.createElement('select');
+        prioritySelect.classList.add('priority-select');
+        const low = document.createElement('option');
+        const medium = document.createElement('option');
+        const high = document.createElement('option');
+        low.setAttribute('value', 'Low');
+        medium.setAttribute('value', 'Medium');
+        high.setAttribute('value', 'High');
+        low.textContent = "Low";
+        medium.textContent = "Medium";
+        high.textContent = "High";
+
+        prioritySelect.appendChild(low);
+        prioritySelect.appendChild(medium);
+        prioritySelect.appendChild(high);
+        prioritySection.appendChild(priorityLabel);
+        prioritySection.appendChild(prioritySelect);
     
         const btnSection = document.createElement('div');
         btnSection.classList.add('button-section');
@@ -232,6 +246,7 @@ const displayUI = (function() {
         form.appendChild(titleSection);
         form.appendChild(descriptionSection);
         form.appendChild(dateSection);
+        form.appendChild(prioritySection);
         form.appendChild(btnSection);
         dialog.appendChild(form);
         content.appendChild(dialog);
@@ -299,6 +314,7 @@ const displayUI = (function() {
         });
         eventHandler.addProjectSettingsListeners();
         eventHandler.addDeleteListeners();
+        eventHandler.addRenameProjectListeners();
     };
     function displayItemSettings() {
         const listItemContainers = document.querySelectorAll('.list-item-container');
@@ -327,6 +343,7 @@ const displayUI = (function() {
         });
         eventHandler.addItemSettingsListeners();
         eventHandler.addDeleteListeners();
+        eventHandler.addEditListeners();
     };
     function displayDeleteDialog() {
         const content = document.querySelector('.content');
@@ -358,8 +375,129 @@ const displayUI = (function() {
 
         eventHandler.addDeleteDialogBtnListeners();
     };
+    function displayRenameDialog() {
+        const content = document.querySelector('.content');
+        const renameDialog = document.createElement('dialog');
+        renameDialog.classList.add('rename-dialog');
+        const form = document.createElement('form');
+        const heading = document.createElement('h3');
+        heading.textContent = "Rename Project";
+        
+        const projectTitleSection = document.createElement('div');
+        projectTitleSection.classList.add('project-title-section');
 
-    return {displayHeader, displaySidebar, displayContent, displayMainHeading, displaySidebarHeading, displayProjects, displayAddNewProject, displayProject, displayProjectNameHeading, displayAddNewListItem, displayAddListItemDialog, displayAddProjectDialog, displayProjectSettings, displayItemSettings, displayDeleteDialog};
+        const projectTitleLabel = document.createElement('label');
+        projectTitleLabel.textContent = "Project Name:";
+        projectTitleLabel.classList.add('project-title-label');
+        const projectTitle = document.createElement('input');
+        projectTitle.classList.add('project-title');
+        projectTitle.classList.add('rename-title');
+
+        const btnSection = document.createElement('div');
+        btnSection.classList.add('project-button-section');
+        const addProjectBtn = document.createElement('button');
+        addProjectBtn.classList.add('rename-project-button');
+        addProjectBtn.textContent = "Rename";
+        const cancelProjectBtn = document.createElement('button');
+        cancelProjectBtn.classList.add('cancel-rename-button');
+        cancelProjectBtn.textContent = "Cancel";
+
+        projectTitleSection.appendChild(projectTitleLabel);
+        projectTitleSection.appendChild(projectTitle);
+        btnSection.appendChild(addProjectBtn);
+        btnSection.appendChild(cancelProjectBtn);
+        form.appendChild(heading);
+        form.appendChild(projectTitleSection);
+        form.appendChild(btnSection);
+        renameDialog.appendChild(form);
+        content.appendChild(renameDialog);
+
+        eventHandler.addRenameDialogListeners();
+    };
+    function displayEditDialog() {
+        const content = document.querySelector('.content');
+        const editDialog = document.createElement('dialog');
+        editDialog.classList.add('edit-dialog');
+        const form = document.createElement('form');
+        form.classList.add('edit-list-item-form');
+
+        const mainHeading = document.createElement('h3');
+        mainHeading.textContent = "Edit List Item";
+      
+        const titleSection = document.createElement('div');
+        const descriptionSection = document.createElement('div');
+        const dateSection = document.createElement('div');
+        titleSection.classList.add('title-section');
+        descriptionSection.classList.add('description-section');
+        dateSection.classList.add('date-section');
+    
+        const prioritySection = document.createElement('div');
+        prioritySection.classList.add('priority-section');
+        const priorityLabel = document.createElement('label');
+        priorityLabel.textContent = "Priority:";
+        const prioritySelect = document.createElement('select');
+        prioritySelect.classList.add('new-priority-select');
+        const low = document.createElement('option');
+        const medium = document.createElement('option');
+        const high = document.createElement('option');
+        low.setAttribute('value', 'Low');
+        medium.setAttribute('value', 'Medium');
+        high.setAttribute('value', 'High');
+        low.textContent = "Low";
+        medium.textContent = "Medium";
+        high.textContent = "High";
+
+        prioritySelect.appendChild(low);
+        prioritySelect.appendChild(medium);
+        prioritySelect.appendChild(high);
+        prioritySection.appendChild(priorityLabel);
+        prioritySection.appendChild(prioritySelect);
+
+
+        const titleLabel = document.createElement('label');
+        const descriptionLabel = document.createElement('label');
+        const dateLabel = document.createElement('label');
+        titleLabel.textContent = "Title:";
+        descriptionLabel.textContent = "Description:";
+        dateLabel.textContent = "Date:";
+    
+        const title = document.createElement('input');
+        title.classList.add('new-title');
+        const description = document.createElement('input');
+        description.classList.add('new-description');
+        const date = document.createElement('input');
+        date.classList.add('new-date');
+    
+        const btnSection = document.createElement('div');
+        btnSection.classList.add('button-section');
+        const addBtn = document.createElement('button');
+        const cancelBtn = document.createElement('button');
+        addBtn.classList.add('update-list-item-button');
+        cancelBtn.classList.add('cancel-update-item-button');
+        addBtn.textContent = "Update";
+        cancelBtn.textContent = "Cancel";
+
+        titleSection.appendChild(titleLabel);
+        titleSection.appendChild(title);
+        descriptionSection.appendChild(descriptionLabel);
+        descriptionSection.appendChild(description);
+        dateSection.appendChild(dateLabel);
+        dateSection.appendChild(date);
+        btnSection.appendChild(addBtn);
+        btnSection.appendChild(cancelBtn);
+        form.appendChild(mainHeading);
+        form.appendChild(titleSection);
+        form.appendChild(descriptionSection);
+        form.appendChild(dateSection);
+        form.appendChild(prioritySection);
+        form.appendChild(btnSection);
+        editDialog.appendChild(form);
+        content.append(editDialog);
+
+        eventHandler.addEditDialogListeners();
+    };
+
+    return {displayHeader, displaySidebar, displayContent, displayMainHeading, displaySidebarHeading, displayProjects, displayAddNewProject, displayProject, displayProjectNameHeading, displayAddNewListItem, displayAddListItemDialog, displayAddProjectDialog, displayProjectSettings, displayItemSettings, displayDeleteDialog, displayRenameDialog, displayEditDialog};
 })();
 
 export default displayUI;
