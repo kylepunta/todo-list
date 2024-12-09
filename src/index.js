@@ -21,6 +21,7 @@ displayUI.displayAddListItemDialog();
 displayUI.displayProjectNameHeading();
 displayUI.displayAddNewListItem();
 displayUI.displayAddProjectDialog();
+displayUI.displayDeleteDialog();
 displayUI.displayProjectSettings();
 
 const expandBtns = document.querySelectorAll('.expand');
