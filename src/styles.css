@@ -202,20 +202,23 @@ svg {
     grid-area: 1 / 3 / 3 / 4;
 }
 
-.add-list-item-dialog {
+.add-list-item-dialog,
+.edit-dialog {
     width: 800px;
-    height: 400px;
+    height: 500px;
 }
 
-.add-list-item-form {
+.add-list-item-form,
+.edit-list-item-form {
     height: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto repeat(4, 1fr);
+    grid-template-rows: auto repeat(5, 1fr);
     gap: 10px;
 }
 
-.add-list-item-form > h3 {
+.add-list-item-form > h3,
+.edit-list-item-form > h3 {
     grid-area: 1 / 1 / 2 / 3;
     text-align: center;
 }
@@ -233,16 +236,28 @@ svg {
 }
 
 .add-list-item-button,
-.cancel-list-item-button {
+.cancel-list-item-button,
+.update-list-item-button,
+.cancel-update-item-button {
     width: 220px;
     height: 46px;
 }
 
 .button-section {
-    grid-area: 5 / 1 / 6 / 3;
+    grid-area: 6 / 1 / 7 / 3;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+}
+
+.priority-section {
+    grid-area: 5 / 1 / 6 / 3;
+    display: flex;    
+    align-items: center;
+}
+
+.priority-section select {
+    margin-left: 42px;
 }
 
 .title-section,
@@ -253,19 +268,22 @@ svg {
     align-items: center;
 }
 
-.add-list-item-form input {
+.add-list-item-form input,
+.edit-list-item-form input {
     width: 688px;
     height: 30px;
     border: 1px solid gray;
     border-radius: 6px;
 }
 
-.add-project-dialog {
+.add-project-dialog,
+.rename-dialog {
     width: 600px;
     height: 250px;
 }
 
-.add-project-form {
+.add-project-form,
+.rename-dialog form {
     height: 100%;
     display: grid;
     grid-template-columns: auto;
@@ -273,7 +291,8 @@ svg {
     gap: 10px;
 }
 
-.add-project-form > h3 {
+.add-project-form > h3,
+.rename-dialog form h3 {
     text-align: center;
     font-size: 26px;
 }
