@@ -1,3 +1,4 @@
+import { getCurrentProject } from "./state.js";
 import { projects } from "./storage.js";
 import displayUI from "./UI.js";
 
@@ -17,6 +18,12 @@ const projectsController = (function() {
         displayUI.displayProjects();
         displayUI.displayProjectSettings();
     };
-    return {createProject, addProject};
+    function deleteProject() {
+        const currentProject = getCurrentProject();
+        projects.splice(currentProject, 1);
+        displayUI.displayProjects();
+        displayUI.displayProjectSettings();
+    };
+    return {createProject, addProject, deleteProject};
 })();
 export {projectsController};
