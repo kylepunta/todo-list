@@ -394,3 +394,43 @@ svg {
     border-bottom: 1px solid gray;
     padding: 2px 40px;
 }
+
+.rename-container > p:hover,
+.delete-container > p:hover,
+.edit-container > p:hover {
+    cursor: pointer;
+    color: black;
+}
+
+.delete-dialog {
+    width: 314px;
+    height: 200px;
+}
+
+.delete-dialog > form {
+    height: 100%;
+    width: 100%;
+    display: grid;
+}
+
+.delete-dialog h3 {
+    text-align: center;
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+
+.delete-dialog p {
+    text-align: center;
+    margin-bottom: 0px;
+    font-size: 18px;
+}
+
+.delete-buttons-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.delete-buttons-section > button {
+    padding: 10px 40px;
+}
