@@ -48,7 +48,10 @@ const listItemsController = (function() {
         displayUI.displayItemSettings();
         console.table(projects);
     };
-    return { createListItem, addListItem, deleteListItem, updateListItem };    
+    function checkListItem(marker) {
+        marker.classList.toggle('checked');
+    };
+    return { createListItem, addListItem, deleteListItem, updateListItem, checkListItem };    
 })();
 
 
