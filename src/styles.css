@@ -10,23 +10,28 @@ body {
 }
 
 .header {
-    background-color: #9494ff;
+    background-color: #B55858;
     grid-area: header;
+    color: #351212;
 }
 
 .sidebar {
-    background-color: #dadbff;
+    background-color: #FFD3D3;
     grid-area: sidebar;
     display: grid;
     grid-template-rows: 66px auto 66px;
     gap: 4px;
-    border: 2px solid #bec0ff;
+    border: 2px solid #FFF;
+    color: #3a0000;
 }
 
 .content {
     grid-area: content;
     display: grid;
     grid-template-rows: 72px auto 72px;
+    background-color: #FFEBEB;
+    color: #3a0000;
+    border: 1px solid #FFF;
 }
 
 .project-heading,
@@ -36,8 +41,8 @@ body {
 
 .project-name-container {
     margin: 0px;
-    border-top: 1px solid #bec0ff;
-    border-bottom: 1px solid #bec0ff;
+    border-top: 1px solid #FFF;
+    border-bottom: 1px solid #FFF;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -67,7 +72,7 @@ svg {
 
 .list-item-container {
     display: grid;
-    border: 1px solid gray;
+    border: 1px solid rgb(87, 7, 7);
     grid-template-columns: 2fr 7fr 2fr 2fr 1fr 1fr;
     grid-template-rows: 1fr;
     justify-items: start;
@@ -76,6 +81,8 @@ svg {
     min-height: 70px;
     padding: 14px 10px;
     position: relative;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .list-item-container > * {
@@ -116,6 +123,7 @@ svg {
     height: 30px;
     border: 2px solid black;
     border-radius: 20px;
+    background-color: white;
 }
 
 
@@ -278,7 +286,7 @@ svg {
 
 .add-project-dialog,
 .rename-dialog {
-    width: 600px;
+    width: 500px;
     height: 250px;
 }
 
@@ -332,7 +340,7 @@ svg {
     cursor: pointer;
 }
 
-.project-button:hover {
+button:hover {
     cursor: pointer;
 }
 
@@ -379,6 +387,8 @@ svg {
     opacity: 1;
     visibility: visible;
     z-index: 1;
+    background-color: #fff8f8;
+    color: #4f2020;
 }
 
 .hidden {
@@ -407,6 +417,8 @@ svg {
     right: 10px;
     bottom: 62px;
     background-color: white;
+    background-color: #fff8f8;
+    color: #4f2020;
 }
 
 .edit-container {
@@ -414,9 +426,9 @@ svg {
     padding: 2px 40px;
 }
 
-.rename-container > p:hover,
-.delete-container > p:hover,
-.edit-container > p:hover {
+.rename-container:hover,
+.delete-container:hover,
+.edit-container:hover {
     cursor: pointer;
     color: black;
 }
@@ -424,6 +436,9 @@ svg {
 .delete-dialog {
     width: 314px;
     height: 200px;
+    border: 2px solid #640000;
+    background-color: #fff4f4;
+    color: #4b0c0c;
 }
 
 .delete-dialog > form {
@@ -435,7 +450,7 @@ svg {
 .delete-dialog h3 {
     text-align: center;
     margin-bottom: 0px;
-    font-size: 20px;
+    font-size: 22px;
 }
 
 .delete-dialog p {
@@ -452,4 +467,32 @@ svg {
 
 .delete-buttons-section > button {
     padding: 10px 40px;
+}
+
+button {
+    background-color: #a23737;
+    border: 2px solid #600000;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+}
+
+form {
+    color: #351212;
+}
+
+dialog {
+    border: 2px solid #640000;
+    background-color: #fff4f4;
+    color: #4b0c0c;
+}
+
+.list-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checked {
+    background-color: #840000;
 }
