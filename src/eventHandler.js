@@ -155,7 +155,7 @@ const eventHandler = (function() {
         });
     };
     function addDeleteListeners() {
-        const deleteProjectBtns = document.querySelectorAll('.delete-project');
+        const deleteProjectBtns = document.querySelectorAll('.delete-container');
         const deleteItemBtns = document.querySelectorAll('#delete-item');
         const deleteDialog = document.querySelector('.delete-dialog');
         const deleteHeading = document.querySelector('.delete-heading');
@@ -202,7 +202,7 @@ const eventHandler = (function() {
         });
     };
     function addRenameProjectListeners() {
-        const renameBtns = document.querySelectorAll('.rename-project');
+        const renameBtns = document.querySelectorAll('.rename-container');
         const renameDialog = document.querySelector('.rename-dialog');
         renameBtns.forEach((renameBtn) => {
             renameBtn.addEventListener('click', () => {
@@ -218,6 +218,7 @@ const eventHandler = (function() {
         renameBtn.addEventListener('click', (event) => {
             event.preventDefault();
             projectsController.renameProject();
+            displayUI.displayProjectNameHeading();
             renameDialog.close();
         });
         cancelBtn.addEventListener('click', (event) => {
@@ -226,7 +227,7 @@ const eventHandler = (function() {
         });
     };
     function addEditListeners() {
-        const editBtns = document.querySelectorAll('#edit-item');
+        const editBtns = document.querySelectorAll('.edit-container');
         const editDialog = document.querySelector('.edit-dialog');
         editBtns.forEach((editBtn) => {
             editBtn.addEventListener('click', () => {
@@ -249,8 +250,16 @@ const eventHandler = (function() {
             editDialog.close();
         });
     };
+    function addChecklistListeners() {
+        const checklistMarkers = document.querySelectorAll('.checklist-marker');
+        checklistMarkers.forEach((marker) => {
+            marker.addEventListener('click', () => {
+                listItemsController.checkListItem(marker);
+            });
+        });
+    };
 
-    return {addExpandListItemsListeners, addListItemDialogListeners, addNewListItemBtnListener, addProjectBtnListener, addProjectDialogListeners, loadProjectListeners, addProjectSettingsListeners, addItemSettingsListeners, addDeleteListeners, addDeleteDialogBtnListeners, addRenameProjectListeners, addRenameDialogListeners, addEditListeners, addEditDialogListeners};
+    return {addExpandListItemsListeners, addListItemDialogListeners, addNewListItemBtnListener, addProjectBtnListener, addProjectDialogListeners, loadProjectListeners, addProjectSettingsListeners, addItemSettingsListeners, addDeleteListeners, addDeleteDialogBtnListeners, addRenameProjectListeners, addRenameDialogListeners, addEditListeners, addEditDialogListeners, addChecklistListeners};
 })();
 
 export { eventHandler };
