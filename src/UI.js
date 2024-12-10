@@ -146,6 +146,7 @@ const displayUI = (function() {
             listItemsContainer.appendChild(listItemContainer);
         });
         eventHandler.addExpandListItemsListeners();
+        eventHandler.addChecklistListeners();
     };
     function displayProjectNameHeading() {
         const currentProject = getCurrentProject();
