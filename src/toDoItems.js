@@ -1,5 +1,4 @@
 import { getCurrentItem, getCurrentProject, setCurrentProject } from "./state";
-import { projects } from "./storage";
 import displayUI from "./UI";
 
 const listItemsController = (function() {
@@ -9,10 +8,12 @@ const listItemsController = (function() {
             description: description,
             date: date,
             priority: priority,
+            finished: false,
         };
         return listItem;
     };
     function addListItem() {
+        const projects = JSON.parse(localStorage.getItem('projects'));
         const title = document.querySelector('.title').value;
         const description = document.querySelector('.description').value;
         const date = document.querySelector('.date').value;
@@ -21,19 +22,23 @@ const listItemsController = (function() {
         let listItem = createListItem(title, description, date, priority);
         let currentProject = getCurrentProject();
         projects[currentProject].listItems.push(listItem);
-        displayUI.displayProject();
+        localStorage.setItem('projects', JSON.stringify(projects));
+        displayUI.displayListItems();
         displayUI.displayItemSettings();
-        console.table(projects);
+        console.table(localStorage);
     };
     function deleteListItem() {
+        const projects = JSON.parse(localStorage.getItem('projects'));
         const currentItem = getCurrentItem();
         const currentProject = getCurrentProject();
         projects[currentProject].listItems.splice(currentItem, 1);
-        displayUI.displayProject();
+        localStorage.setItem('projects', JSON.stringify(projects));
+        displayUI.displayListItems();
         displayUI.displayItemSettings();
-        console.table(projects);
+        console.table(localStorage);
     };
     function updateListItem() {
+        const projects = JSON.parse(localStorage.getItem('projects'));
         const currentItem = getCurrentItem();
         const currentProject = getCurrentProject();
         const newTitle = document.querySelector('.new-title').value;
@@ -44,12 +49,23 @@ const listItemsController = (function() {
         projects[currentProject].listItems[currentItem].description = newDescription;
         projects[currentProject].listItems[currentItem].date = newDate;
         projects[currentProject].listItems[currentItem].priority = newPriority;
-        displayUI.displayProject();
+        localStorage.setItem('projects', JSON.stringify(projects));
+        displayUI.displayListItems();
         displayUI.displayItemSettings();
         console.table(projects);
     };
     function checkListItem(marker) {
-        marker.classList.toggle('checked');
+        const projects = JSON.parse(localStorage.getItem('projects'));
+        const currentItem = getCurrentItem();
+        const currentProject = getCurrentProject();
+        projects[currentProject].listItems[currentItem].finished = !projects[currentProject].listItems[currentItem].finished;
+        if(projects[currentProject].listItems[currentItem].finished == true) {
+            marker.classList.add('checked');
+        }
+        else {
+            marker.classList.remove('checked');
+        }
+        localStorage.setItem('projects', JSON.stringify(projects));
     };
     return { createListItem, addListItem, deleteListItem, updateListItem, checkListItem };    
 })();
