@@ -1,8 +1,7 @@
 import { listItemsController } from "./toDoItems";
 import { projectsController } from "./projects";
 import displayUI from "./UI";
-import { getCurrentProject, setCurrentProject, getCurrentItem, setCurrentItem ,getElementToDelete, setElementToDelete } from "./state";
-import { projects } from "./storage";
+import { setCurrentProject, setCurrentItem ,getElementToDelete, setElementToDelete } from "./state";
 
 const eventHandler = (function() {
     const parser = new DOMParser();
@@ -36,6 +35,7 @@ const eventHandler = (function() {
         const addListItemDialog = document.querySelector('.add-list-item-dialog');
         addNewListItem.addEventListener('click', () => {
             addListItemDialog.showModal();
+            console.log('Clicked!');
         });
     };
 
@@ -83,8 +83,9 @@ const eventHandler = (function() {
             button.addEventListener('click', () => {
                 setCurrentProject(index);
                 displayUI.displayProjectNameHeading();
-                displayUI.displayProject();
+                displayUI.displayListItems();
                 displayUI.displayItemSettings();
+                displayUI.displayAddNewListItem();
             });
         });
     };
@@ -155,8 +156,8 @@ const eventHandler = (function() {
         });
     };
     function addDeleteListeners() {
-        const deleteProjectBtns = document.querySelectorAll('.delete-container');
-        const deleteItemBtns = document.querySelectorAll('#delete-item');
+        const deleteProjectBtns = document.querySelectorAll('.delete-project-container');
+        const deleteItemBtns = document.querySelectorAll('.delete-item-container');
         const deleteDialog = document.querySelector('.delete-dialog');
         const deleteHeading = document.querySelector('.delete-heading');
 
@@ -252,8 +253,9 @@ const eventHandler = (function() {
     };
     function addChecklistListeners() {
         const checklistMarkers = document.querySelectorAll('.checklist-marker');
-        checklistMarkers.forEach((marker) => {
+        checklistMarkers.forEach((marker, index) => {
             marker.addEventListener('click', () => {
+                setCurrentItem(index);
                 listItemsController.checkListItem(marker);
             });
         });
