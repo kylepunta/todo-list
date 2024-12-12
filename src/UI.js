@@ -1,5 +1,5 @@
 import { eventHandler } from "./eventHandler.js";
-import { getCurrentProject, setCurrentProject } from "./state.js";
+import { getCurrentProject } from "./state.js";
 
 const displayUI = (function() {
     const body = document.querySelector('body');
